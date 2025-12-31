@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/playtron-os/icebook/compare/v1.1.0...v1.1.1) (2025-12-31)
+
+
+### Bug Fixes
+
+* use a default font family ([cab986a](https://github.com/playtron-os/icebook/commit/cab986a91febb8b0b473625a2ff4912b625699b5))
+
 # [1.1.0](https://github.com/playtron-os/icebook/compare/v1.0.1...v1.1.0) (2025-12-31)
 
 
