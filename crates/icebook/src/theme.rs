@@ -8,8 +8,8 @@ use iced::{Color, Font};
 /// Brightness mode for theme switching
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum Brightness {
-    #[default]
     Dark,
+    #[default]
     Light,
 }
 
