@@ -1,6 +1,6 @@
 //! Generic sidebar navigation component
 
-use iced::widget::{button, column, container, text, Column, Space};
+use iced::widget::{button, column, container, scrollable, text, text_input, Column, Space};
 use iced::{Color, Element, Length};
 
 use crate::theme::SidebarTheme;
@@ -31,12 +31,14 @@ pub struct SidebarConfig {
 pub enum SidebarMessage {
     ToggleBrightness,
     SelectStory(String),
+    SearchChanged(String),
 }
 
 /// Render the sidebar with component navigation
 pub fn sidebar<'a>(
     config: &'a SidebarConfig,
     selected: &str,
+    search_query: &str,
     theme: &'a dyn SidebarTheme,
 ) -> Element<'a, SidebarMessage> {
     let bg_color = theme.sidebar_background();
@@ -63,10 +65,33 @@ pub fn sidebar<'a>(
     .on_press(SidebarMessage::ToggleBrightness)
     .padding(8);
 
-    // Build component list from sections
+    // Search input
+    let search_input = text_input("Search components...", search_query)
+        .on_input(SidebarMessage::SearchChanged)
+        .padding(8)
+        .width(Length::Fill);
+
+    // Filter query (lowercase for case-insensitive matching)
+    let query_lower = search_query.to_lowercase();
+
+    // Build component list from sections (filtered by search)
     let mut components: Column<'a, SidebarMessage> = Column::new().spacing(4);
 
     for (i, section) in config.sections.iter().enumerate() {
+        // Filter items by search query
+        let filtered_items: Vec<_> = section
+            .items
+            .iter()
+            .filter(|item| {
+                query_lower.is_empty() || item.label.to_lowercase().contains(&query_lower)
+            })
+            .collect();
+
+        // Skip empty sections after filtering
+        if filtered_items.is_empty() {
+            continue;
+        }
+
         // Add spacing between sections (not before the first one)
         if i > 0 {
             components = components.push(Space::new().height(16));
@@ -76,17 +101,24 @@ pub fn sidebar<'a>(
         components = components.push(section_header(&section.title, text_secondary, theme));
 
         // Navigation items in this section
-        for item in &section.items {
+        for item in filtered_items {
             components = components.push(nav_item(&item.id, &item.label, selected, theme));
         }
     }
+
+    // Wrap components in scrollable
+    let scrollable_components = scrollable(components)
+        .width(Length::Fill)
+        .height(Length::Fill);
 
     let content = column![
         header,
         Space::new().height(8),
         theme_toggle,
-        Space::new().height(24),
-        components,
+        Space::new().height(12),
+        search_input,
+        Space::new().height(16),
+        scrollable_components,
     ]
     .padding(16);
 

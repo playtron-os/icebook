@@ -2,7 +2,8 @@
 
 use iced::Element;
 
-use crate::theme::ThemeProvider;
+use crate::sidebar::{SidebarConfig, SidebarMessage};
+use crate::theme::{SidebarTheme, ThemeProvider};
 
 /// Metadata for a story, used for sidebar navigation and routing
 #[derive(Debug, Clone)]
@@ -145,5 +146,43 @@ pub trait StoryRegistry: Default {
         _theme: &'a <Self::Provider as ThemeProvider>::Theme,
     ) -> Element<'a, Self::Message> {
         crate::app::default_welcome_view(Self::title())
+    }
+
+    /// Render a custom sidebar view
+    ///
+    /// Override this method to provide a completely custom sidebar implementation
+    /// using your own widgets and styling. Return `None` to use the default sidebar.
+    ///
+    /// # Arguments
+    /// * `config` - Sidebar configuration with title and navigation sections
+    /// * `selected` - Currently selected story ID
+    /// * `search_query` - Current search query for filtering components
+    /// * `sidebar_theme` - Sidebar theme for colors (if you want to use it)
+    /// * `theme` - Your full theme (for custom styling)
+    ///
+    /// # Example
+    /// ```rust,ignore
+    /// fn sidebar_view<'a>(
+    ///     &'a self,
+    ///     config: &'a SidebarConfig,
+    ///     selected: &str,
+    ///     search_query: &str,
+    ///     _sidebar_theme: &'a dyn SidebarTheme,
+    ///     theme: &'a dyn ThemeInterface,
+    /// ) -> Option<Element<'a, SidebarMessage>> {
+    ///     // Build custom sidebar using your own components
+    ///     Some(my_custom_sidebar(config, selected, search_query, theme))
+    /// }
+    /// ```
+    fn sidebar_view<'a>(
+        &'a self,
+        _config: &'a SidebarConfig,
+        _selected: &str,
+        _search_query: &str,
+        _sidebar_theme: &'a dyn SidebarTheme,
+        _theme: &'a <Self::Provider as ThemeProvider>::Theme,
+    ) -> Option<Element<'a, SidebarMessage>> {
+        // Return None to use the default sidebar
+        None
     }
 }

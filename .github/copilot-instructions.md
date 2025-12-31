@@ -24,12 +24,18 @@ Icebook is a **theme-agnostic** component storybook framework for [Iced](https:/
 - `StoryRegistry` trait - Container for all stories with routing
 - `StoryMeta` - Metadata for sidebar navigation
 
+### Sidebar System
+- Built-in search filtering for components
+- `SidebarMessage` enum: `ToggleBrightness`, `SelectStory(String)`, `SearchChanged(String)`
+- `SidebarConfig` - Configuration with title and sections
+- `sidebar_view()` - Optional method on `StoryRegistry` to provide custom sidebar
+
 ### Key Files
 - `crates/icebook/src/lib.rs` - Public API exports, fallback font
-- `crates/icebook/src/app.rs` - Main Storybook application shell
+- `crates/icebook/src/app.rs` - Main Storybook application shell (contains search state)
 - `crates/icebook/src/story.rs` - Story and StoryRegistry traits
 - `crates/icebook/src/theme.rs` - Theme abstraction layer, SidebarTheme
-- `crates/icebook/src/sidebar.rs` - Sidebar navigation component
+- `crates/icebook/src/sidebar.rs` - Sidebar navigation component with search input
 
 ## Build & Run
 

@@ -25,6 +25,8 @@ where
     preferences: Preferences,
     /// Cached sidebar config (owned data)
     sidebar_config: SidebarConfig,
+    /// Current search query for filtering components
+    search_query: String,
 }
 
 /// Messages for the Storybook application
@@ -36,6 +38,8 @@ pub enum Message<M> {
     ToggleBrightness,
     /// Select a story to display
     SelectStory(String),
+    /// Search query changed
+    SearchChanged(String),
 }
 
 impl<S> Storybook<S>
@@ -64,6 +68,7 @@ where
             brightness,
             preferences,
             sidebar_config,
+            search_query: String::new(),
         };
 
         (app, Task::none())
@@ -86,6 +91,10 @@ where
                 self.selected = id;
                 Task::none()
             }
+            Message::SearchChanged(query) => {
+                self.search_query = query;
+                Task::none()
+            }
         }
     }
 
@@ -95,11 +104,28 @@ where
         let theme = S::Provider::get_theme(self.brightness);
         let sidebar_theme = S::Provider::get_sidebar_theme(self.brightness);
 
-        // Render sidebar using cached config
-        let sidebar_view =
-            sidebar(&self.sidebar_config, &self.selected, sidebar_theme).map(|msg| match msg {
+        // Check if consumer provides a custom sidebar
+        let sidebar_view = self
+            .stories
+            .sidebar_view(
+                &self.sidebar_config,
+                &self.selected,
+                &self.search_query,
+                sidebar_theme,
+                theme,
+            )
+            .unwrap_or_else(|| {
+                sidebar(
+                    &self.sidebar_config,
+                    &self.selected,
+                    &self.search_query,
+                    sidebar_theme,
+                )
+            })
+            .map(|msg| match msg {
                 SidebarMessage::ToggleBrightness => Message::ToggleBrightness,
                 SidebarMessage::SelectStory(id) => Message::SelectStory(id),
+                SidebarMessage::SearchChanged(query) => Message::SearchChanged(query),
             });
 
         // Render main content area

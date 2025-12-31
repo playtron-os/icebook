@@ -62,6 +62,7 @@ mod story;
 mod theme;
 
 pub use app::{default_welcome_view, Message, Settings, Storybook};
+pub use sidebar::{NavItem, SidebarConfig, SidebarMessage, SidebarSection};
 pub use story::{Story, StoryMeta, StoryRegistry};
 pub use theme::{
     default_sidebar_theme, Brightness, SidebarFont, SidebarTheme, SimpleDarkSidebar,
@@ -87,6 +88,7 @@ pub const FALLBACK_FONT_NAME: &str = "Fira Sans";
 pub mod prelude {
     pub use crate::app::{default_welcome_view, Message, Settings, Storybook};
     pub use crate::run;
+    pub use crate::sidebar::{NavItem, SidebarConfig, SidebarMessage, SidebarSection};
     pub use crate::story::{Story, StoryMeta, StoryRegistry};
     pub use crate::theme::{
         default_sidebar_theme, Brightness, SidebarFont, SidebarTheme, SimpleDarkSidebar,
