@@ -62,6 +62,7 @@ mod story;
 mod theme;
 
 pub use app::{default_welcome_view, Message, Settings, Storybook};
+use iced::Font;
 pub use sidebar::{NavItem, SidebarConfig, SidebarMessage, SidebarSection};
 pub use story::{Story, StoryMeta, StoryRegistry};
 pub use theme::{
@@ -154,8 +155,8 @@ where
     .theme(Storybook::<S>::theme)
     .subscription(Storybook::<S>::subscription)
     .window_size(settings.window_size)
-    // Always load the fallback font first for WASM compatibility
-    .font(FALLBACK_FONT);
+    .font(FALLBACK_FONT)
+    .default_font(Font::with_name(FALLBACK_FONT_NAME));
 
     // Load all custom fonts from consumer
     for font_bytes in settings.fonts {
