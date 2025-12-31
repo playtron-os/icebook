@@ -1,0 +1,29 @@
+[package]
+name = "icebook"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Generic component storybook framework for Iced applications - compiles to WASM"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = []
+
+[dependencies]
+tracing.workspace = true
+once_cell.workspace = true
+
+# Platform-specific iced configuration
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+iced = { workspace = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+iced = { version = "0.14", features = ["svg", "lazy", "webgl"] }
+wasm-bindgen.workspace = true
+web-sys = { workspace = true, features = ["Window", "Storage", "MediaQueryList", "Location", "History"] }
+console_error_panic_hook.workspace = true
+tracing-wasm.workspace = true
