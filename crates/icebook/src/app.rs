@@ -218,19 +218,23 @@ pub fn default_welcome_view<'a, M: 'a>(title: &str) -> Element<'a, M> {
 }
 
 /// Settings for window/application
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct Settings {
     /// Window title
-    pub title: String,
+    pub title: &'static str,
     /// Initial window size
     pub window_size: Size,
+    /// Font bytes to load (use `include_bytes!` for WASM)
+    /// Pass multiple fonts for different weights/styles
+    pub fonts: &'static [&'static [u8]],
 }
 
 impl Default for Settings {
     fn default() -> Self {
         Self {
-            title: "icebook".to_string(),
+            title: "icebook",
             window_size: Size::new(1200.0, 800.0),
+            fonts: &[],
         }
     }
 }

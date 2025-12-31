@@ -2,7 +2,8 @@
 //!
 //! Consumers implement `ThemeProvider` to supply their own theme system.
 
-use iced::Color;
+use iced::widget::text::Shaping;
+use iced::{Color, Font};
 
 /// Brightness mode for theme switching
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -18,6 +19,22 @@ impl Brightness {
         match self {
             Brightness::Dark => Brightness::Light,
             Brightness::Light => Brightness::Dark,
+        }
+    }
+}
+
+/// Font configuration for sidebar text
+#[derive(Debug, Clone, Copy)]
+pub struct SidebarFont {
+    pub font: Font,
+    pub shaping: Shaping,
+}
+
+impl Default for SidebarFont {
+    fn default() -> Self {
+        Self {
+            font: Font::DEFAULT,
+            shaping: Shaping::Basic,
         }
     }
 }
@@ -39,6 +56,49 @@ pub trait SidebarTheme {
     fn hover_background(&self) -> Color;
     /// Main content area background
     fn content_background(&self) -> Color;
+
+    // === Typography configuration ===
+
+    /// Font for the sidebar title
+    fn title_font(&self) -> SidebarFont {
+        SidebarFont::default()
+    }
+    /// Font size for the sidebar title
+    fn title_size(&self) -> f32 {
+        24.0
+    }
+
+    /// Font for section headers
+    fn section_font(&self) -> SidebarFont {
+        SidebarFont::default()
+    }
+    /// Font size for section headers
+    fn section_size(&self) -> f32 {
+        12.0
+    }
+
+    /// Font for navigation items
+    fn nav_font(&self) -> SidebarFont {
+        SidebarFont::default()
+    }
+    /// Font size for navigation items
+    fn nav_size(&self) -> f32 {
+        14.0
+    }
+
+    /// Font for the theme toggle button
+    fn button_font(&self) -> SidebarFont {
+        SidebarFont::default()
+    }
+    /// Font size for the theme toggle button
+    fn button_size(&self) -> f32 {
+        14.0
+    }
+
+    /// Sidebar width
+    fn sidebar_width(&self) -> f32 {
+        220.0
+    }
 }
 
 /// Theme provider trait - implement this in your storybook consumer
@@ -89,6 +149,14 @@ pub trait ThemeProvider {
 /// Simple built-in sidebar theme for dark mode
 pub struct SimpleDarkSidebar;
 
+/// Font configuration using the built-in Fira Sans fallback font
+fn fallback_sidebar_font() -> SidebarFont {
+    SidebarFont {
+        font: Font::with_name(crate::FALLBACK_FONT_NAME),
+        shaping: Shaping::Advanced,
+    }
+}
+
 impl SidebarTheme for SimpleDarkSidebar {
     fn sidebar_background(&self) -> Color {
         Color::from_rgb(0.1, 0.1, 0.1)
@@ -107,6 +175,20 @@ impl SidebarTheme for SimpleDarkSidebar {
     }
     fn content_background(&self) -> Color {
         Color::from_rgb(0.15, 0.15, 0.15)
+    }
+
+    // Use the built-in Fira Sans font for all text
+    fn title_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
+    }
+    fn section_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
+    }
+    fn nav_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
+    }
+    fn button_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
     }
 }
 
@@ -131,6 +213,20 @@ impl SidebarTheme for SimpleLightSidebar {
     }
     fn content_background(&self) -> Color {
         Color::WHITE
+    }
+
+    // Use the built-in Fira Sans font for all text
+    fn title_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
+    }
+    fn section_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
+    }
+    fn nav_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
+    }
+    fn button_font(&self) -> SidebarFont {
+        fallback_sidebar_font()
     }
 }
 

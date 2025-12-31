@@ -43,11 +43,25 @@ pub fn sidebar<'a>(
     let text_color = theme.text_primary();
     let text_secondary = theme.text_secondary();
 
-    let header = text(&config.title).size(24).color(text_color);
+    // Get font configuration from theme
+    let title_font = theme.title_font();
+    let button_font = theme.button_font();
 
-    let theme_toggle = button(text("Toggle Theme").color(text_secondary))
-        .on_press(SidebarMessage::ToggleBrightness)
-        .padding(8);
+    let header = text(&config.title)
+        .size(theme.title_size())
+        .color(text_color)
+        .font(title_font.font)
+        .shaping(title_font.shaping);
+
+    let theme_toggle = button(
+        text("Toggle Theme")
+            .color(text_secondary)
+            .size(theme.button_size())
+            .font(button_font.font)
+            .shaping(button_font.shaping),
+    )
+    .on_press(SidebarMessage::ToggleBrightness)
+    .padding(8);
 
     // Build component list from sections
     let mut components: Column<'a, SidebarMessage> = Column::new().spacing(4);
@@ -59,7 +73,7 @@ pub fn sidebar<'a>(
         }
 
         // Section header
-        components = components.push(section_header(&section.title, text_secondary));
+        components = components.push(section_header(&section.title, text_secondary, theme));
 
         // Navigation items in this section
         for item in &section.items {
@@ -77,7 +91,7 @@ pub fn sidebar<'a>(
     .padding(16);
 
     container(content)
-        .width(Length::Fixed(220.0))
+        .width(Length::Fixed(theme.sidebar_width()))
         .height(Length::Fill)
         .style(move |_| container::Style {
             background: Some(iced::Background::Color(bg_color)),
@@ -86,8 +100,18 @@ pub fn sidebar<'a>(
         .into()
 }
 
-fn section_header<'a>(label: &str, color: Color) -> Element<'a, SidebarMessage> {
-    text(label.to_string()).size(12).color(color).into()
+fn section_header<'a>(
+    label: &str,
+    color: Color,
+    theme: &'a dyn SidebarTheme,
+) -> Element<'a, SidebarMessage> {
+    let section_font = theme.section_font();
+    text(label.to_string())
+        .size(theme.section_size())
+        .color(color)
+        .font(section_font.font)
+        .shaping(section_font.shaping)
+        .into()
 }
 
 fn nav_item<'a>(
@@ -108,25 +132,33 @@ fn nav_item<'a>(
         Color::TRANSPARENT
     };
     let hover_bg = theme.hover_background();
+    let nav_font = theme.nav_font();
+    let nav_size = theme.nav_size();
 
     let id_owned = id.to_string();
 
-    let btn = button(text(label.to_string()).size(14).color(text_color))
-        .on_press(SidebarMessage::SelectStory(id_owned))
-        .padding([8, 12])
-        .width(Length::Fill)
-        .style(move |_, status| {
-            let bg = match status {
-                button::Status::Hovered if !is_selected => hover_bg,
-                _ => bg_color,
-            };
-            button::Style {
-                background: Some(iced::Background::Color(bg)),
-                text_color,
-                border: iced::Border::default().rounded(6),
-                ..Default::default()
-            }
-        });
+    let btn = button(
+        text(label.to_string())
+            .size(nav_size)
+            .color(text_color)
+            .font(nav_font.font)
+            .shaping(nav_font.shaping),
+    )
+    .on_press(SidebarMessage::SelectStory(id_owned))
+    .padding([8, 12])
+    .width(Length::Fill)
+    .style(move |_, status| {
+        let bg = match status {
+            button::Status::Hovered if !is_selected => hover_bg,
+            _ => bg_color,
+        };
+        button::Style {
+            background: Some(iced::Background::Color(bg)),
+            text_color,
+            border: iced::Border::default().rounded(6),
+            ..Default::default()
+        }
+    });
 
     btn.into()
 }
