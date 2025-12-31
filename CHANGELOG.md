@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/playtron-os/icebook/compare/v1.1.2...v1.1.3) (2025-12-31)
+
+
+### Bug Fixes
+
+* empty commit to trigger build ([d3ea69e](https://github.com/playtron-os/icebook/commit/d3ea69ec4a041ac41303a40f2f10c94e030a9e1f))
+
 ## [1.1.1](https://github.com/playtron-os/icebook/compare/v1.1.0...v1.1.1) (2025-12-31)
 
 
