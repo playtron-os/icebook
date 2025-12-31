@@ -6,7 +6,7 @@ resolver = "2"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-repository = "https://bitbucket.org/playtron-one/icebook"
+repository = "https://github.com/playtron-os/icebook"
 authors = ["Playtron Team"]
 
 [workspace.dependencies]
