@@ -6,6 +6,7 @@ use iced::widget::{column, container, row, scrollable, text};
 use iced::{Element, Length, Size, Subscription, Task};
 
 use crate::preferences::Preferences;
+use crate::routing;
 use crate::sidebar::{sidebar, NavItem, SidebarConfig, SidebarMessage, SidebarSection};
 use crate::story::{StoryMeta, StoryRegistry};
 use crate::theme::{Brightness, ThemeProvider};
@@ -56,11 +57,14 @@ where
         let story_list = S::stories();
         let sidebar_config = build_sidebar_config(S::title(), &story_list);
 
-        // Select first story by default, or empty string for welcome
-        let selected = story_list
-            .first()
-            .map(|s| s.id.to_string())
+        // Check URL hash for initial story, otherwise use first story or empty for welcome
+        let selected = routing::get_initial_route()
+            .filter(|id| story_list.iter().any(|s| s.id == id))
+            .or_else(|| story_list.first().map(|s| s.id.to_string()))
             .unwrap_or_default();
+
+        // Sync URL to selected story (in case we defaulted to first)
+        routing::set_url_hash(&selected);
 
         let app = Self {
             stories,
@@ -88,7 +92,8 @@ where
                 Task::none()
             }
             Message::SelectStory(id) => {
-                self.selected = id;
+                self.selected = id.clone();
+                routing::set_url_hash(&id);
                 Task::none()
             }
             Message::SearchChanged(query) => {

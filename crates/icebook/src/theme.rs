@@ -159,13 +159,13 @@ fn fallback_sidebar_font() -> SidebarFont {
 
 impl SidebarTheme for SimpleDarkSidebar {
     fn sidebar_background(&self) -> Color {
-        Color::from_rgb(0.1, 0.1, 0.1)
+        Color::from_rgb(0.08, 0.08, 0.08)
     }
     fn text_primary(&self) -> Color {
         Color::from_rgb(0.95, 0.95, 0.95)
     }
     fn text_secondary(&self) -> Color {
-        Color::from_rgb(0.6, 0.6, 0.6)
+        Color::from_rgb(0.75, 0.75, 0.75)
     }
     fn selected_background(&self) -> Color {
         Color::from_rgba(1.0, 1.0, 1.0, 0.1)
@@ -197,13 +197,13 @@ pub struct SimpleLightSidebar;
 
 impl SidebarTheme for SimpleLightSidebar {
     fn sidebar_background(&self) -> Color {
-        Color::from_rgb(0.95, 0.95, 0.95)
+        Color::from_rgb(0.96, 0.96, 0.96)
     }
     fn text_primary(&self) -> Color {
         Color::from_rgb(0.1, 0.1, 0.1)
     }
     fn text_secondary(&self) -> Color {
-        Color::from_rgb(0.4, 0.4, 0.4)
+        Color::from_rgb(0.35, 0.35, 0.35)
     }
     fn selected_background(&self) -> Color {
         Color::from_rgba(0.0, 0.0, 0.0, 0.08)

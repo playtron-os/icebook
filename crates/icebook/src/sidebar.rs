@@ -55,15 +55,38 @@ pub fn sidebar<'a>(
         .font(title_font.font)
         .shaping(title_font.shaping);
 
+    // Theme toggle button with visible border/background
+    let toggle_bg = theme.hover_background();
+    let toggle_border = text_secondary;
     let theme_toggle = button(
         text("Toggle Theme")
-            .color(text_secondary)
+            .color(text_color)
             .size(theme.button_size())
             .font(button_font.font)
             .shaping(button_font.shaping),
     )
     .on_press(SidebarMessage::ToggleBrightness)
-    .padding(8);
+    .padding(8)
+    .style(move |_theme, status| {
+        use iced::widget::button;
+        let bg = match status {
+            button::Status::Hovered => {
+                Color::from_rgba(toggle_bg.r, toggle_bg.g, toggle_bg.b, 0.15)
+            }
+            button::Status::Pressed => Color::from_rgba(toggle_bg.r, toggle_bg.g, toggle_bg.b, 0.2),
+            _ => toggle_bg,
+        };
+        button::Style {
+            background: Some(bg.into()),
+            text_color,
+            border: iced::Border {
+                color: toggle_border,
+                width: 1.0,
+                radius: 4.0.into(),
+            },
+            ..Default::default()
+        }
+    });
 
     // Search input
     let search_input = text_input("Search components...", search_query)

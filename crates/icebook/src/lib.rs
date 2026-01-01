@@ -57,6 +57,7 @@
 
 mod app;
 mod preferences;
+mod routing;
 mod sidebar;
 mod story;
 mod theme;

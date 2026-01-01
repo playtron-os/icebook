@@ -1,0 +1,115 @@
+version: "3"
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  # -------------------------
+  # 🔨 BUILD & TEST
+  # -------------------------
+  build:
+    desc: Build the library
+    cmds:
+      - cargo build --all-features
+
+  build:release:
+    desc: Build in release mode
+    cmds:
+      - cargo build --release --all-features
+
+  test:
+    desc: Run tests
+    cmds:
+      - cargo test --all-features
+
+  lint:
+    desc: Run lints (fmt check + clippy)
+    cmds:
+      - cargo fmt --check
+      - cargo clippy --all-features -- -D warnings
+
+  fmt:
+    desc: Format code
+    cmds:
+      - cargo fmt
+
+  docs:
+    desc: Generate documentation
+    cmds:
+      - cargo doc --no-deps --all-features
+
+  docs:open:
+    desc: Generate and open documentation
+    cmds:
+      - cargo doc --no-deps --all-features --open
+
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - cargo clean
+
+  check:
+    desc: Quick check without building
+    cmds:
+      - cargo check --all-features
+
+  # -------------------------
+  # 🌐 WASM
+  # -------------------------
+  ensure-wasm-target:
+    desc: Ensure WASM target is installed
+    internal: true
+    status:
+      - rustup target list --installed | grep -q wasm32-unknown-unknown
+    cmds:
+      - rustup target add wasm32-unknown-unknown
+
+  build:wasm:
+    desc: Build for WASM target
+    deps: [ensure-wasm-target]
+    cmds:
+      - cargo build --target wasm32-unknown-unknown --all-features
+
+  check:wasm:
+    desc: Check WASM target compiles
+    deps: [ensure-wasm-target]
+    cmds:
+      - cargo check --target wasm32-unknown-unknown --all-features
+
+  # -------------------------
+  # 📖 EXAMPLE STORYBOOK
+  # -------------------------
+  ensure-trunk:
+    desc: Ensure trunk is installed
+    internal: true
+    status:
+      - command -v trunk
+    cmds:
+      - cargo install trunk
+
+  example:
+    desc: Run example storybook natively (no hot reload)
+    cmds:
+      - cargo run -p icebook-example
+
+  example:serve:
+    desc: Run example storybook dev server with trunk (hot reload)
+    deps: [ensure-wasm-target, ensure-trunk]
+    dir: crates/icebook-example
+    cmds:
+      - trunk serve ./index.html --open
+
+  example:build:
+    desc: Build example storybook for production (WASM)
+    deps: [ensure-wasm-target, ensure-trunk]
+    dir: crates/icebook-example
+    cmds:
+      - trunk build ./index.html --release
+
+  example:clean:
+    desc: Clean example storybook build artifacts
+    dir: crates/icebook-example
+    cmds:
+      - rm -rf dist/
