@@ -46,8 +46,8 @@ impl ThemeProvider for SimpleThemeProvider {
 
     fn get_theme(brightness: Brightness) -> &'static Self::Theme {
         match brightness {
-            Brightness::Dark => &*DARK_THEME,
-            Brightness::Light => &*LIGHT_THEME,
+            Brightness::Dark => &DARK_THEME,
+            Brightness::Light => &LIGHT_THEME,
         }
     }
 }
