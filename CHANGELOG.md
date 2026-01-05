@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/playtron-os/icebook/compare/v1.1.3...v1.2.0) (2026-01-05)
+
+
+### Features
+
+* add URL hash routing, example storybook, and Taskfile ([e2b86fc](https://github.com/playtron-os/icebook/commit/e2b86fc420cc5d0ebba93315e56c0951c2087672)), closes [#story-id](https://github.com/playtron-os/icebook/issues/story-id)
+
 ## [1.1.3](https://github.com/playtron-os/icebook/compare/v1.1.2...v1.1.3) (2025-12-31)
 
 
