@@ -5,6 +5,16 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (without v prefix, leave empty to use Cargo.toml version)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run (build and test only, skip publish)'
+        required: false
+        type: boolean
+        default: false
 
 env:
   CARGO_TERM_COLOR: always
@@ -16,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Use tag ref for tag triggers, main for workflow_dispatch (to get semantic-release version bump)
+          ref: ${{ github.ref_type == 'tag' && github.ref || 'main' }}
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -31,13 +44,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-publish-
 
-      - name: Verify version matches tag
+      - name: Verify version
         run: |
-          TAG_VERSION="${GITHUB_REF#refs/tags/v}"
           CARGO_VERSION=$(grep '^version' Cargo.toml | head -1 | sed 's/.*"\(.*\)".*/\1/')
-          if [ "$TAG_VERSION" != "$CARGO_VERSION" ]; then
-            echo "Tag version ($TAG_VERSION) does not match Cargo.toml version ($CARGO_VERSION)"
-            exit 1
+          echo "Publishing version: $CARGO_VERSION"
+          # If triggered by tag, verify it matches
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            TAG_VERSION="${GITHUB_REF#refs/tags/v}"
+            if [ "$TAG_VERSION" != "$CARGO_VERSION" ]; then
+              echo "Tag version ($TAG_VERSION) does not match Cargo.toml version ($CARGO_VERSION)"
+              exit 1
+            fi
+          fi
+          # If triggered by workflow_dispatch with version input, verify it matches
+          if [ -n "${{ inputs.version }}" ]; then
+            if [ "${{ inputs.version }}" != "$CARGO_VERSION" ]; then
+              echo "Input version (${{ inputs.version }}) does not match Cargo.toml version ($CARGO_VERSION)"
+              exit 1
+            fi
           fi
 
       - name: Build release
@@ -47,4 +71,9 @@ jobs:
         run: cargo test --all-features
 
       - name: Publish icebook crate
+        if: ${{ inputs.dry_run != true }}
         run: cargo publish -p icebook --allow-dirty
+
+      - name: Dry run - skip publish
+        if: ${{ inputs.dry_run == true }}
+        run: echo "Dry run mode - skipping publish to crates.io"
