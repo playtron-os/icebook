@@ -28,10 +28,6 @@ web-sys = { workspace = true, features = ["Window", "Storage", "MediaQueryList",
 console_error_panic_hook.workspace = true
 tracing-wasm.workspace = true
 
-[[example]]
-name = "simple_storybook"
-path = "examples/simple_storybook.rs"
-
 [dev-dependencies]
 iced = { workspace = true }
 once_cell = { workspace = true }
