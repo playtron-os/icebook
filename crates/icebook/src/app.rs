@@ -180,7 +180,9 @@ where
 
     /// Window subscription
     pub fn subscription(&self) -> Subscription<Message<S::Message>> {
-        Subscription::none()
+        self.stories
+            .subscription(&self.selected)
+            .map(Message::Story)
     }
 }
 

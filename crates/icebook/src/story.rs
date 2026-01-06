@@ -1,6 +1,6 @@
 //! Story trait and registry for defining component documentation
 
-use iced::Element;
+use iced::{Element, Subscription};
 
 use crate::sidebar::{SidebarConfig, SidebarMessage};
 use crate::theme::{SidebarTheme, ThemeProvider};
@@ -61,6 +61,12 @@ pub trait Story<Theme: ?Sized> {
 
     /// Render the story view
     fn view<'a>(&'a self, theme: &'a Theme) -> Element<'a, Self::Message>;
+
+    /// Return subscriptions for this story (e.g., for animations)
+    /// Default implementation returns no subscriptions.
+    fn subscription(&self) -> Subscription<Self::Message> {
+        Subscription::none()
+    }
 }
 
 /// Registry of all stories in a storybook
@@ -184,5 +190,23 @@ pub trait StoryRegistry: Default {
     ) -> Option<Element<'a, SidebarMessage>> {
         // Return None to use the default sidebar
         None
+    }
+
+    /// Return subscriptions for the currently selected story
+    ///
+    /// Override this to provide subscriptions from your stories (e.g., for animations).
+    /// The `story_id` parameter indicates which story is currently selected.
+    ///
+    /// # Example
+    /// ```rust,ignore
+    /// fn subscription(&self, story_id: &str) -> Subscription<Self::Message> {
+    ///     match story_id {
+    ///         "animations" => self.animations.subscription().map(MyMessage::Animations),
+    ///         _ => Subscription::none(),
+    ///     }
+    /// }
+    /// ```
+    fn subscription(&self, _story_id: &str) -> Subscription<Self::Message> {
+        Subscription::none()
     }
 }
