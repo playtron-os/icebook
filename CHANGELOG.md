@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/playtron-os/icebook/compare/v1.2.0...v1.3.0) (2026-01-06)
+
+
+### Features
+
+* add subscription support to Story and StoryRegistry traits ([3abba12](https://github.com/playtron-os/icebook/commit/3abba127813bc581b6c00a14ab5da4194c3ee504))
+
 # [1.2.0](https://github.com/playtron-os/icebook/compare/v1.1.3...v1.2.0) (2026-01-05)
 
 
