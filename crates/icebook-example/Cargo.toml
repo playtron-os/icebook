@@ -14,7 +14,7 @@ once_cell = "1.19"
 
 # Platform-specific iced configuration
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-iced = { version = "0.14", features = ["lazy"] }
+iced = { git = "ssh://git@github.com/playtron-os/iced.git", rev = "1fbe0e0", features = ["lazy"] }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-iced = { version = "0.14", features = ["webgl", "lazy"] }
+iced = { git = "ssh://git@github.com/playtron-os/iced.git", rev = "1fbe0e0", features = ["webgl", "lazy"] }

@@ -22,7 +22,7 @@ once_cell.workspace = true
 iced = { workspace = true }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-iced = { version = "0.14", features = ["svg", "lazy", "webgl"] }
+iced = { git = "ssh://git@github.com/playtron-os/iced.git", rev = "1fbe0e0", features = ["svg", "lazy", "webgl"] }
 wasm-bindgen.workspace = true
 web-sys = { workspace = true, features = ["Window", "Storage", "MediaQueryList", "Location", "History"] }
 console_error_panic_hook.workspace = true

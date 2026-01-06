@@ -11,7 +11,7 @@ authors = ["Playtron Team"]
 
 [workspace.dependencies]
 # Iced framework
-iced = { version = "0.14", features = ["svg", "lazy"] }
+iced = { git = "ssh://git@github.com/playtron-os/iced.git", rev = "1fbe0e0", features = ["svg", "lazy"] }
 
 # Utilities
 tracing = "0.1"
