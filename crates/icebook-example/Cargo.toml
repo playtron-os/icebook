@@ -14,7 +14,7 @@ once_cell = "1.19"
 
 # Platform-specific iced configuration
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-iced = { git = "https://github.com/playtron-os/iced.git", rev = "7d6515d5", features = ["lazy"] }
+iced = { workspace = true }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-iced = { git = "https://github.com/playtron-os/iced.git", rev = "7d6515d5", features = ["wgpu", "webgl", "lazy"] }
+iced = { workspace = true }
