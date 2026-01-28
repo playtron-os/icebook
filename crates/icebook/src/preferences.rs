@@ -76,7 +76,7 @@ fn get_system_brightness() -> Brightness {
 
 #[cfg(not(target_arch = "wasm32"))]
 fn get_system_brightness() -> Brightness {
-    Brightness::Dark
+    Brightness::Light
 }
 
 /// Save brightness preference
