@@ -11,7 +11,7 @@ authors = ["Playtron Team"]
 
 [workspace.dependencies]
 # Iced framework - default-features = false disables "crisp" pixel snapping which causes rendering issues on some monitors
-iced = { git = "https://github.com/playtron-os/iced.git", rev = "a71cb02b", default-features = false, features = ["wgpu", "tiny-skia", "hinting", "web-colors", "thread-pool", "linux-theme-detection", "x11", "wayland", "svg", "lazy"] }
+iced = { git = "https://github.com/playtron-os/iced.git", rev = "cc38137e", default-features = false, features = ["wgpu", "tiny-skia", "hinting", "web-colors", "thread-pool", "linux-theme-detection", "x11", "wayland", "svg", "lazy"] }
 # iced = { path = "../iced", default-features = false, features = ["wgpu", "tiny-skia", "hinting", "web-colors", "thread-pool", "linux-theme-detection", "x11", "wayland", "svg", "lazy"] }
 
 # Utilities
