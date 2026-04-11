@@ -32,6 +32,8 @@ pub enum SidebarMessage {
     ToggleBrightness,
     SelectStory(String),
     SearchChanged(String),
+    /// App-specific custom action (icebook passes it through to the registry).
+    Custom(String),
 }
 
 /// Render the sidebar with component navigation

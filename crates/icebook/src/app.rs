@@ -37,6 +37,8 @@ pub enum Message<M> {
     Story(M),
     /// Toggle between light/dark mode
     ToggleBrightness,
+    /// App-specific custom sidebar action
+    CustomSidebar(String),
     /// Select a story to display
     SelectStory(String),
     /// Search query changed
@@ -95,6 +97,11 @@ where
                 self.preferences.save();
                 Task::none()
             }
+            Message::CustomSidebar(id) => {
+                self.stories.handle_sidebar_message(&id);
+                Task::none()
+            }
+
             Message::SelectStory(id) => {
                 self.selected = id.clone();
                 routing::set_url_hash(&id);
@@ -104,8 +111,14 @@ where
                 self.search_query = query;
                 Task::none()
             }
-            Message::FocusNext => iced::widget::operation::focus_next(),
-            Message::FocusPrevious => iced::widget::operation::focus_previous(),
+            Message::FocusNext => {
+                tracing::info!("icebook: FocusNext received");
+                iced::widget::operation::focus_next()
+            }
+            Message::FocusPrevious => {
+                tracing::info!("icebook: FocusPrevious received");
+                iced::widget::operation::focus_previous()
+            }
         }
     }
 
@@ -137,6 +150,7 @@ where
                 SidebarMessage::ToggleBrightness => Message::ToggleBrightness,
                 SidebarMessage::SelectStory(id) => Message::SelectStory(id),
                 SidebarMessage::SearchChanged(query) => Message::SearchChanged(query),
+                SidebarMessage::Custom(id) => Message::CustomSidebar(id),
             });
 
         // Render main content area
@@ -186,33 +200,38 @@ where
 
     /// Window subscription
     pub fn subscription(&self) -> Subscription<Message<S::Message>> {
-        let focus_events = iced::event::listen_with(|event, _status, _id| match event {
-            iced::Event::Keyboard(keyboard::Event::KeyPressed {
-                key: keyboard::Key::Named(keyboard::key::Named::Tab),
-                modifiers,
-                ..
-            }) => {
-                if modifiers.shift() {
-                    Some(Message::FocusPrevious)
-                } else {
-                    Some(Message::FocusNext)
-                }
+        let focus_events = iced::event::listen_with(|event, status, _id| {
+            if status == iced::event::Status::Captured {
+                return None;
             }
-            iced::Event::Keyboard(keyboard::Event::KeyPressed {
-                key:
-                    keyboard::Key::Named(
-                        keyboard::key::Named::ArrowDown | keyboard::key::Named::ArrowRight,
-                    ),
-                ..
-            }) => Some(Message::FocusNext),
-            iced::Event::Keyboard(keyboard::Event::KeyPressed {
-                key:
-                    keyboard::Key::Named(
-                        keyboard::key::Named::ArrowUp | keyboard::key::Named::ArrowLeft,
-                    ),
-                ..
-            }) => Some(Message::FocusPrevious),
-            _ => None,
+            match event {
+                iced::Event::Keyboard(keyboard::Event::KeyPressed {
+                    key: keyboard::Key::Named(keyboard::key::Named::Tab),
+                    modifiers,
+                    ..
+                }) => {
+                    if modifiers.shift() {
+                        Some(Message::FocusPrevious)
+                    } else {
+                        Some(Message::FocusNext)
+                    }
+                }
+                iced::Event::Keyboard(keyboard::Event::KeyPressed {
+                    key:
+                        keyboard::Key::Named(
+                            keyboard::key::Named::ArrowDown | keyboard::key::Named::ArrowRight,
+                        ),
+                    ..
+                }) => Some(Message::FocusNext),
+                iced::Event::Keyboard(keyboard::Event::KeyPressed {
+                    key:
+                        keyboard::Key::Named(
+                            keyboard::key::Named::ArrowUp | keyboard::key::Named::ArrowLeft,
+                        ),
+                    ..
+                }) => Some(Message::FocusPrevious),
+                _ => None,
+            }
         });
 
         let story_sub = self

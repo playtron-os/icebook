@@ -137,6 +137,12 @@ pub trait StoryRegistry: Default {
     /// Update a specific story's state
     fn update(&mut self, story_id: &str, message: Self::Message);
 
+    /// Handle a custom sidebar message.
+    ///
+    /// Override this to react to app-specific `SidebarMessage::Custom(id)` actions
+    /// emitted from your custom sidebar view.
+    fn handle_sidebar_message(&mut self, _id: &str) {}
+
     /// Render a specific story's view
     fn view<'a>(
         &'a self,
