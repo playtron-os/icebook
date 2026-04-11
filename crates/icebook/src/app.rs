@@ -3,7 +3,7 @@
 //! Generic over the StoryRegistry provided by the consumer.
 
 use iced::widget::{column, container, row, scrollable, text};
-use iced::{Element, Length, Size, Subscription, Task};
+use iced::{keyboard, Element, Length, Size, Subscription, Task};
 
 use crate::preferences::Preferences;
 use crate::routing;
@@ -41,6 +41,10 @@ pub enum Message<M> {
     SelectStory(String),
     /// Search query changed
     SearchChanged(String),
+    /// Move focus to the next focusable widget.
+    FocusNext,
+    /// Move focus to the previous focusable widget.
+    FocusPrevious,
 }
 
 impl<S> Storybook<S>
@@ -100,6 +104,8 @@ where
                 self.search_query = query;
                 Task::none()
             }
+            Message::FocusNext => iced::widget::operation::focus_next(),
+            Message::FocusPrevious => iced::widget::operation::focus_previous(),
         }
     }
 
@@ -180,9 +186,41 @@ where
 
     /// Window subscription
     pub fn subscription(&self) -> Subscription<Message<S::Message>> {
-        self.stories
+        let focus_events = iced::event::listen_with(|event, _status, _id| match event {
+            iced::Event::Keyboard(keyboard::Event::KeyPressed {
+                key: keyboard::Key::Named(keyboard::key::Named::Tab),
+                modifiers,
+                ..
+            }) => {
+                if modifiers.shift() {
+                    Some(Message::FocusPrevious)
+                } else {
+                    Some(Message::FocusNext)
+                }
+            }
+            iced::Event::Keyboard(keyboard::Event::KeyPressed {
+                key:
+                    keyboard::Key::Named(
+                        keyboard::key::Named::ArrowDown | keyboard::key::Named::ArrowRight,
+                    ),
+                ..
+            }) => Some(Message::FocusNext),
+            iced::Event::Keyboard(keyboard::Event::KeyPressed {
+                key:
+                    keyboard::Key::Named(
+                        keyboard::key::Named::ArrowUp | keyboard::key::Named::ArrowLeft,
+                    ),
+                ..
+            }) => Some(Message::FocusPrevious),
+            _ => None,
+        });
+
+        let story_sub = self
+            .stories
             .subscription(&self.selected)
-            .map(Message::Story)
+            .map(Message::Story);
+
+        Subscription::batch([focus_events, story_sub])
     }
 }
 
