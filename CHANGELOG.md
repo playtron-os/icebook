@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/playtron-os/icebook/compare/v1.3.0...v1.4.0) (2026-04-11)
+
+
+### Features
+
+* support focus navigation ([4a900a2](https://github.com/playtron-os/icebook/commit/4a900a269277f8a256f1be9f2608a96e4d1aa7f1))
+
 # [1.3.0](https://github.com/playtron-os/icebook/compare/v1.2.0...v1.3.0) (2026-04-11)
 
 
