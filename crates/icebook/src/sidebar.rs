@@ -85,6 +85,7 @@ pub fn sidebar<'a>(
                 color: toggle_border,
                 width: 1.0,
                 radius: 4.0.into(),
+                ..Default::default()
             },
             ..Default::default()
         }
