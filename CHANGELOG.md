@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/playtron-os/icebook/compare/v1.4.0...v1.5.0) (2026-05-20)
+
+
+### Features
+
+* update iced ([30bcc2e](https://github.com/playtron-os/icebook/commit/30bcc2e36b1bd98d66fbe207ad91e51bd6ca4be9))
+
 # [1.4.0](https://github.com/playtron-os/icebook/compare/v1.3.0...v1.4.0) (2026-04-11)
 
 
