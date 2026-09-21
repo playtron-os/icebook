@@ -1,6 +1,6 @@
 //! Story trait and registry for defining component documentation
 
-use iced::{Element, Subscription};
+use iced::{Element, Subscription, Task};
 
 use crate::sidebar::{SidebarConfig, SidebarMessage};
 use crate::theme::{SidebarTheme, ThemeProvider};
@@ -136,6 +136,12 @@ pub trait StoryRegistry: Default {
 
     /// Update a specific story's state
     fn update(&mut self, story_id: &str, message: Self::Message);
+
+    /// A follow-up task to run right after a story handled a message — e.g.
+    /// focusing a field when a panel opens. Default: nothing.
+    fn take_task(&mut self) -> Task<Self::Message> {
+        Task::none()
+    }
 
     /// Handle a custom sidebar message.
     ///

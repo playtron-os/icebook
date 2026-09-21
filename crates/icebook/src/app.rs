@@ -89,7 +89,7 @@ where
         match message {
             Message::Story(msg) => {
                 self.stories.update(&self.selected, msg);
-                Task::none()
+                self.stories.take_task().map(Message::Story)
             }
             Message::ToggleBrightness => {
                 self.brightness = self.brightness.toggle();
