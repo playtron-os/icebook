@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/playtron-os/icebook/compare/v1.5.0...v1.6.0) (2026-09-21)
+
+
+### Features
+
+* run a follow-up task after a story handles a message ([107afb2](https://github.com/playtron-os/icebook/commit/107afb283b3751551f360e55674cfcfdbd252dcd))
+
 # [1.5.0](https://github.com/playtron-os/icebook/compare/v1.4.0...v1.5.0) (2026-05-20)
 
 
