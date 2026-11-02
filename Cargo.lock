@@ -572,9 +572,10 @@ dependencies = [
 [[package]]
 name = "cosmic-text"
 version = "0.18.0"
-source = "git+https://github.com/playtron-os/cosmic-text.git?rev=f1ef5fe3#f1ef5fe30a03dac352c027fe50a6038eb47dc6da"
+source = "git+https://github.com/playtron-os/cosmic-text.git?rev=0796c0a071fb37cb6489cd9e75b6ecd7be76236c#0796c0a071fb37cb6489cd9e75b6ecd7be76236c"
 dependencies = [
  "bitflags 2.11.1",
+ "font-types",
  "fontdb",
  "harfrust",
  "linebender_resource_handle",
@@ -617,7 +618,7 @@ checksum = "460fbee9c2c2f33933d720630a6a0bac33ba7053db5344fac858d4b8952d77d5"
 [[package]]
 name = "cryoglyph"
 version = "0.1.0"
-source = "git+https://github.com/playtron-os/cryoglyph.git?rev=8051b64#8051b64fd2356b069b6f9c7dd9d36f9dbf24700a"
+source = "git+https://github.com/playtron-os/cryoglyph.git?rev=1cad1246648ddac1eca8ca910450f183d4af8341#1cad1246648ddac1eca8ca910450f183d4af8341"
 dependencies = [
  "cosmic-text",
  "etagere",
@@ -690,7 +691,7 @@ checksum = "75b325c5dbd37f80359721ad39aca5a29fb04c89279657cffdda8736d0c0b9d2"
 [[package]]
 name = "dpi"
 version = "0.1.1"
-source = "git+https://github.com/playtron-os/winit.git?branch=feat%2Frebase-v0.30.12#d3d664ba424c2cdf84520098e6f9c3fae632c5d8"
+source = "git+https://github.com/playtron-os/winit.git?rev=1fbd6e419696dca7f8743f5f4f17b8583b4a199a#1fbd6e419696dca7f8743f5f4f17b8583b4a199a"
 
 [[package]]
 name = "dtor"
@@ -1212,7 +1213,7 @@ checksum = "dfa686283ad6dd069f105e5ab091b04c62850d3e4cf5d67debad1933f55023df"
 
 [[package]]
 name = "icebook"
-version = "1.4.0"
+version = "1.6.0"
 dependencies = [
  "console_error_panic_hook",
  "iced",
@@ -1235,7 +1236,7 @@ dependencies = [
 [[package]]
 name = "iced"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "iced_core",
  "iced_debug",
@@ -1250,7 +1251,7 @@ dependencies = [
 [[package]]
 name = "iced_core"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "bitflags 2.11.1",
  "bytes",
@@ -1267,7 +1268,7 @@ dependencies = [
 [[package]]
 name = "iced_debug"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "iced_core",
  "iced_futures",
@@ -1277,7 +1278,7 @@ dependencies = [
 [[package]]
 name = "iced_futures"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "futures",
  "iced_core",
@@ -1290,7 +1291,7 @@ dependencies = [
 [[package]]
 name = "iced_graphics"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "bitflags 2.11.1",
  "bytemuck",
@@ -1308,7 +1309,7 @@ dependencies = [
 [[package]]
 name = "iced_program"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "iced_graphics",
  "iced_runtime",
@@ -1317,7 +1318,7 @@ dependencies = [
 [[package]]
 name = "iced_renderer"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "iced_graphics",
  "iced_tiny_skia",
@@ -1329,7 +1330,7 @@ dependencies = [
 [[package]]
 name = "iced_runtime"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "bytes",
  "iced_core",
@@ -1342,7 +1343,7 @@ dependencies = [
 [[package]]
 name = "iced_tiny_skia"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "bytemuck",
  "cosmic-text",
@@ -1359,8 +1360,9 @@ dependencies = [
 [[package]]
 name = "iced_wgpu"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
+ "as-raw-xcb-connection",
  "bitflags 2.11.1",
  "bytemuck",
  "cryoglyph",
@@ -1370,16 +1372,25 @@ dependencies = [
  "iced_debug",
  "iced_graphics",
  "log",
+ "raw-window-handle",
  "resvg",
  "rustc-hash 2.1.2",
+ "rustix 0.38.44",
+ "smithay-client-toolkit",
  "thiserror 2.0.18",
+ "tiny-xlib",
+ "wayland-backend",
+ "wayland-client",
+ "wayland-protocols",
+ "wayland-sys",
  "wgpu",
+ "x11rb",
 ]
 
 [[package]]
 name = "iced_widget"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "iced_renderer",
  "log",
@@ -1393,7 +1404,7 @@ dependencies = [
 [[package]]
 name = "iced_winit"
 version = "0.15.0-dev"
-source = "git+https://github.com/playtron-os/iced.git#8b255fdda8bed39cb219ac61a082f304d55d207e"
+source = "git+https://github.com/playtron-os/iced.git#0686cfa7b0a74745e991ff924ecdf277d49af9ab"
 dependencies = [
  "arboard",
  "iced_debug",
@@ -1753,7 +1764,7 @@ dependencies = [
 [[package]]
 name = "naga"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "arrayvec",
  "bit-set",
@@ -2928,8 +2939,7 @@ checksum = "4aaa7368fcf4852a4c2dd92df0cace6a71f2091ca0a23391ce7f3a31833f1523"
 [[package]]
 name = "softbuffer"
 version = "0.4.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aac18da81ebbf05109ab275b157c22a653bb3c12cf884450179942f81bcbf6c3"
+source = "git+https://github.com/playtron-os/softbuffer.git?rev=32e21d75208525b1bcd57d130e6bf8a8e67aba76#32e21d75208525b1bcd57d130e6bf8a8e67aba76"
 dependencies = [
  "as-raw-xcb-connection",
  "bytemuck",
@@ -3645,7 +3655,7 @@ checksum = "a28ac98ddc8b9274cb41bb4d9d4d5c425b6020c50c46f25559911905610b4a88"
 [[package]]
 name = "wgpu"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "arrayvec",
  "bitflags 2.11.1",
@@ -3674,7 +3684,7 @@ dependencies = [
 [[package]]
 name = "wgpu-core"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "arrayvec",
  "bit-set",
@@ -3705,7 +3715,7 @@ dependencies = [
 [[package]]
 name = "wgpu-core-deps-apple"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "wgpu-hal",
 ]
@@ -3713,7 +3723,7 @@ dependencies = [
 [[package]]
 name = "wgpu-core-deps-emscripten"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "wgpu-hal",
 ]
@@ -3721,7 +3731,7 @@ dependencies = [
 [[package]]
 name = "wgpu-core-deps-windows-linux-android"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "wgpu-hal",
 ]
@@ -3729,7 +3739,7 @@ dependencies = [
 [[package]]
 name = "wgpu-hal"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "android_system_properties",
  "arrayvec",
@@ -3776,7 +3786,7 @@ dependencies = [
 [[package]]
 name = "wgpu-types"
 version = "28.0.1"
-source = "git+https://github.com/playtron-os/wgpu.git?rev=f28c5f92e#f28c5f92e16ad4c997206263f6400cd2e8d5a20e"
+source = "git+https://github.com/playtron-os/wgpu.git?rev=1b9a82c33#1b9a82c33f62634cb4cc9f498747769588bc908e"
 dependencies = [
  "bitflags 2.11.1",
  "bytemuck",
@@ -4072,7 +4082,7 @@ checksum = "d6bbff5f0aada427a1e5a6da5f1f98158182f26556f345ac9e04d36d0ebed650"
 [[package]]
 name = "winit"
 version = "0.30.12"
-source = "git+https://github.com/playtron-os/winit.git?branch=feat%2Frebase-v0.30.12#d3d664ba424c2cdf84520098e6f9c3fae632c5d8"
+source = "git+https://github.com/playtron-os/winit.git?rev=1fbd6e419696dca7f8743f5f4f17b8583b4a199a#1fbd6e419696dca7f8743f5f4f17b8583b4a199a"
 dependencies = [
  "ahash",
  "android-activity",
