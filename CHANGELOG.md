@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/playtron-os/icebook/compare/v1.6.0...v1.6.1) (2026-11-02)
+
+
+### Bug Fixes
+
+* **deps:** move to iced master for the Wayland teardown fix ([13920f1](https://github.com/playtron-os/icebook/commit/13920f1628714f6176fb538594e9e8846a4cbcad))
+
 # [1.6.0](https://github.com/playtron-os/icebook/compare/v1.5.0...v1.6.0) (2026-09-21)
 
 
